@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-beauty-50: #fdf2f8;
+  --color-beauty-100: #fce7f3;
+  --color-beauty-200: #fbcfe8;
+  --color-beauty-300: #f9a8d4;
+  --color-beauty-400: #f472b6;
+  --color-beauty-500: #ec4899;
+  --color-beauty-600: #db2777;
+  --color-beauty-700: #be185d;
+  --color-beauty-800: #9d174d;
+  --color-beauty-900: #831843;
+}
+
+body {
+  background-color: #fafafa;
+  color: #1f2937;
+  font-family: 'Inter', sans-serif;
+}
