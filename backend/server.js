@@ -12,29 +12,34 @@ dotenv.config();
 const app = express();
 
 // 2. Middleware
-// Add this near the top where you define your middleware
-
-
-const corsOptions = {
-  // 1. The VIP List (No trailing slashes at the end of the URLs!)
-  origin: [
-    "https://frontend-efaf.onrender.com", // Your active Render frontend
-    "https://aura-beauty-chi.vercel.app", // Your Vercel frontend (if you keep it)
-    "http://localhost:5173"               // For local development
-  ],
+// Manual CORS Middleware (The Brute Force Alternative)
+app.use((req, res, next) => {
+  const allowedOrigins = [
+    'https://frontend-efaf.onrender.com', 
+    'https://aura-beauty-chi.vercel.app', 
+    'http://localhost:5173'
+  ];
   
-  // 2. Allow Cookies and Authorization Headers (Crucial for User Login/JWT)
-  credentials: true, 
+  const origin = req.headers.origin;
   
-  // 3. Explicitly allow the methods your app uses
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  if (allowedOrigins.includes(origin)) {
+       res.setHeader('Access-Control-Allow-Origin', origin);
+  }
   
-  // 4. Explicitly allow the headers your frontend sends
-  allowedHeaders: ["Content-Type", "Authorization"]
-};
-
-// Apply the middleware
-app.use(cors(corsOptions));
+  // Required for JWT cookies/tokens
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  
+  // Explicitly list methods and headers
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  
+  // Intercept preflight requests immediately
+  if (req.method === 'OPTIONS') {
+      return res.status(200).end();
+  }
+  
+  next();
+});
 app.use(express.json());
 
 // 3. Root Route (Fixes "Cannot GET /" and helps Render health checks)
