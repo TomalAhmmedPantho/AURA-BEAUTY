@@ -17,8 +17,9 @@ const app = express();
 
 app.use(cors({ 
   origin: [
-    "https://aura-beauty-chi.vercel.app", // ✅ Your new active Vercel URL
-    "http://localhost:5173"               // Keeps local testing working
+    "https://frontend-efaf.onrender.com", // ✅ Your new Render frontend
+    "https://aura-beauty-chi.vercel.app", // (Optional) Keep Vercel if you want
+    "http://localhost:5173"
   ], 
   credentials: true 
 }));
