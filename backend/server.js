@@ -12,9 +12,13 @@ dotenv.config();
 const app = express();
 
 // 2. Middleware
-// Update the URL below once you have your actual Vercel link
+// Update your cors middleware in server.js
 app.use(cors({ 
-  origin: ["https://aura-beauty.vercel.app", "http://localhost:5173"], 
+  origin: [
+    "https://aura-beauty.vercel.app", // Your clean production URL
+    "https://aura-beauty-owrvwdjsz-tomalpantho440-2103s-projects.vercel.app", // The specific URL from your error
+   // "http://localhost:5173" // For local testing
+  ], 
   credentials: true 
 }));
 app.use(express.json());
