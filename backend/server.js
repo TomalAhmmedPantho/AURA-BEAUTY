@@ -12,17 +12,29 @@ dotenv.config();
 const app = express();
 
 // 2. Middleware
-// Update your cors middleware in server.js
-// Inside backend/server.js
+// Add this near the top where you define your middleware
 
-app.use(cors({ 
+
+const corsOptions = {
+  // 1. The VIP List (No trailing slashes at the end of the URLs!)
   origin: [
-    "https://frontend-efaf.onrender.com", // ✅ Your new Render frontend
-    "https://aura-beauty-chi.vercel.app", // (Optional) Keep Vercel if you want
-    "http://localhost:5173"
-  ], 
-  credentials: true 
-}));
+    "https://frontend-efaf.onrender.com", // Your active Render frontend
+    "https://aura-beauty-chi.vercel.app", // Your Vercel frontend (if you keep it)
+    "http://localhost:5173"               // For local development
+  ],
+  
+  // 2. Allow Cookies and Authorization Headers (Crucial for User Login/JWT)
+  credentials: true, 
+  
+  // 3. Explicitly allow the methods your app uses
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  
+  // 4. Explicitly allow the headers your frontend sends
+  allowedHeaders: ["Content-Type", "Authorization"]
+};
+
+// Apply the middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // 3. Root Route (Fixes "Cannot GET /" and helps Render health checks)
