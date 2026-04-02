@@ -13,11 +13,12 @@ const app = express();
 
 // 2. Middleware
 // Update your cors middleware in server.js
+// Inside backend/server.js
+
 app.use(cors({ 
   origin: [
-    "https://aura-beauty.vercel.app", // Your clean production URL
-    "https://aura-beauty-owrvwdjsz-tomalpantho440-2103s-projects.vercel.app", // The specific URL from your error
-   // "http://localhost:5173" // For local testing
+    "https://aura-beauty-chi.vercel.app", // ✅ Your new active Vercel URL
+    "http://localhost:5173"               // Keeps local testing working
   ], 
   credentials: true 
 }));
